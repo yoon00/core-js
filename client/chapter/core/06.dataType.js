@@ -90,15 +90,15 @@ const _obj = {
     age: 30,
     //normal function method
     sayHi: function(){
-        console.log(this.name);
+        console.dir(this);
     },
     //arrow function method
     sayHi2:() => {
-        console.log(this.name);
+        console.dir(this);
     },
     //concise method => 객체에 method를 정의할 때 제일 많이 씀
     sayHi3(){
-        console.log(this);
+        console.dir(this);
     }
 }
 
