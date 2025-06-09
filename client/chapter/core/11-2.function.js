@@ -88,6 +88,7 @@ console.clear();
   // forEach : 값을 반환하지 x 
   // reduce  : 새로운 값을 반환 (any)
   // map     : 새로운 배열을 반환
+  // filter  : 새로운 배열을 반환
 
 
 const friends = ['이승은','이소민','황유정','문태민'];
@@ -103,28 +104,76 @@ document.body.insertAdjacentHTML('beforeend',newFriends.join(''))
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // 익명(이름이 없는) 함수 (표현)식
-let anonymousFunctionExpression;
+let anonymousFunctionExpression = function(){
+
+};
 
 
 // 유명(이름을 가진) 함수 (표현)식
-let namedFunctionExpression;
+let namedFunctionExpression = function hello(){
+
+};
+// hello(); => 실행안됨
+namedFunctionExpression();
+
 
 
 // 콜백 함수 (표현)식
-let callbackFunctionExpression;
+let cb = function(condition, success, fail){
+  console.log(success);
+  if(condition) success();
+  else fail();
+};
 
+cb(
+  true,
+  function(){console.log('성공');},
+  function(){console.log('실패');}
+);
+
+// cb(
+//   false,
+//   () => {console.log('성공');},
+//   () => {console.log('실패');}
+// );
+
+
+function movePage(url, success, fail){
+  if(url.includes('https')) {
+    success(url);
+  }
+  else {
+    fail();
+  }
+}
+movePage(
+  'https://www.naver.com',
+  function(url){
+    console.log(`${url} 3초 뒤 해당 사이트로 이동`); 
+    // setTimeout(() => {
+    //   location.href = url
+    // }, 3000)
+  },
+    function(){
+    console.log('잘못된 url 정보를 입력'); 
+  }
+)
+
+// function getGelocation(success){
+//   navigator.geolocation.getCurrentPosition(function(so){
+//     const data = so.coords.latitude;
+//     success();
+//     //return data;
+// })
+// }
+
+// //promise
+// // async await
+
+// getGelocation(function(value){
+
+// })
 
 // 함수 선언문 vs. 함수 (표현)식
 
@@ -132,3 +181,110 @@ let callbackFunctionExpression;
 // 즉시 실행 함수 (표현)식
 // Immediately Invoked Function Expression
 let IIFE;
+
+//module programming
+//solution.js
+//export function solution(){
+//
+//}
+//import {solution as 문제} from './solution.js'
+
+//encapsulation(캡슐화) => closure
+const MASTER =  (function(g){
+  var uuid = 'fjaldfjladjfajf#@$@#4';
+  return {
+    getKey(){
+      return uuid;
+    },
+    setKey(value){
+      uuid = value;
+    }
+  }
+})(window)
+
+console.log(MASTER.setKey('새로운 암호화 비밀번호'));
+console.log(MASTER.getKey());
+
+console.clear()
+
+function rem(pxValue, base = 16){    
+  if(!pxValue){
+    throw new Error('rem 함수의 첫 번째 인수는필수 입력 값입니다.');
+  }
+  if(typeof base === 'string'){
+    throw new TypeError('rem 함수의 두 번째 인수는 숫자 타입이어야 합니다.');
+  }
+  if(typeof pxValue === 'string'){
+    pxValue = parseInt(pxValue);
+  }
+  return (pxValue / base) + 'rem';
+}
+
+console.assert(rem(20) === '1.25rem');
+console.assert(rem('25px') === '1.5625rem');
+console.assert(rem('30px', 10) === '3rem');
+
+function setCss(node, prop, value){
+  if(typeof node === 'string') node = document.querySelector(node);
+  if(!(prop in document.body.style)){
+    throw new ReferenceError('setCss 함수의 두 번째 인수는 문자 타입이어야 합니다.')
+  }
+  if(!value) throw new Error('setCss 함수의 세 번째 인수는 필수 입력 값입니다.')
+  node.style[prop] = value;
+}
+
+setCss('.first', 'color', 'orange');
+
+function getCss(node, prop){
+  if(typeof node === 'string'){
+    node = document.querySelector(node);
+  }
+  if(!(prop in document.body)){
+    throw new Error('getCss 함수의 두 번째 인수는 유효한 css 속성이어야 합니다.')
+  }
+  return getComputedStyle(node)[prop];
+}
+
+const fontsize = getCss('.first', 'font-size');
+
+function css(node, prop, value){
+  // if(!value){
+  //   return getCss(node, prop);
+  // }else{
+  //   setCss(node, prop, value);
+  // }
+   return (!value) ? getCss(node, prop) : setCss(node, prop, value);
+}
+
+const _css = (node, prop, value) => (!value) ? getCss(node, prop) : setCss(node, prop, value);
+
+
+const css_ = (function(){
+  function setCss(node, prop, value){
+  if(typeof node === 'string') node = document.querySelector(node);
+  if(!(prop in document.body.style)){
+    throw new ReferenceError('setCss 함수의 두 번째 인수는 문자 타입이어야 합니다.')
+  }
+  if(!value) throw new Error('setCss 함수의 세 번째 인수는 필수 입력 값입니다.')
+  node.style[prop] = value;
+}
+
+
+function getCss(node, prop){
+  if(typeof node === 'string'){
+    node = document.querySelector(node);
+  }
+  if(!(prop in document.body)){
+    throw new Error('getCss 함수의 두 번째 인수는 유효한 css 속성이어야 합니다.')
+  }
+  return getComputedStyle(node)[prop];
+}
+
+function css(node, prop, value){
+  // if(!value){
+  //   return getCss(node, prop);
+  // }else{
+  //   setCss(node, prop, value);
+  // }
+   return (!value) ? getCss(node, prop) : setCss(node, prop, value);
+}})()
