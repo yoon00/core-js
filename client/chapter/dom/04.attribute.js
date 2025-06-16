@@ -19,6 +19,7 @@
 // - 대·소문자를 구분하므로 `elem.nodeType`이 아닌, `elem.NoDeTyPe`는 동작하지 않습니다.
 // - DOM 프로퍼티는 HTML 속성과 달리 값이 항상 문자열이 아닙니다.
 
+// data-*
 
 /* DOM 프로퍼티 검토 ------------------------------------------------------- */
 
@@ -28,26 +29,57 @@
 // - elementNode.removeAttribute(name) – 속성값을 지움
 // - elementNode.attributes – 열거 가능한(iterable) 속성 집합을 반환함
 
+
+
 const about = getNode('.about');
 
 // 1. about에 class 속성이 있는지 확인
-about.hasAttribute('class');
+console.log(  
+
+  
+);
+
+if(about.hasAttribute('class')){
+  // 
+}else{
+  // 
+}
+
 // 2. about의 class 값을 가져와주세요.
-about.getAttribute('class');
-// 3. about의 id 값을 '어바웃'으로 설정해주세요.
-about.setAttribute('id', '어바웃');
+console.log( about.getAttribute('class') );
+
+
+// 3. about의 id 값을 '어바웃'으로 설정해주세요
+about.setAttribute('id','어바웃')
+
+
 // 4. about의 data-name="hello" 속성을 설정해주세요.
-about.setAttribute('data-name', 'hello');
+// about.setAttribute('data-name','hello');
 about.dataset.name = 'hello';
-// 5. about의 data-name의 값을 "bye"로 변경해주세요.
-about.setAttribute('data-name', 'bye');
+
+// 5. about의 data-name의 값을 "bye" 변경 해주세요
 about.dataset.name = 'bye';
+// about.setAttribute('data-name','bye')
+
+
 // 6. about의 class 속성을 제거해주세요.
 about.removeAttribute('class');
-// 7. about의 모든 속성을 나열헤주세요.
+
+
+// 7. about의 모든 속성을 나열해주세요.
+
 for(const a of about.attributes){
-    console.log(a);
+  // console.log( a );
 }
+
+
+
+// attr('.first','class','hello')
+// attr('.first','class')
+
+
+
+
 
 
 
