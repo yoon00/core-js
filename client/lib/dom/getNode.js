@@ -13,7 +13,7 @@
  */
 
 
-function getNode(node,context = document){
+export function getNode(node,context = document){
 
   if(context.nodeType !== 9) context = getNode(context);
 
@@ -27,3 +27,4 @@ function getNodes(node,context = document){
 
   return context.querySelectorAll(node);
 }
+
