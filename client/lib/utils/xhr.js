@@ -1,7 +1,7 @@
 
 
 
-const END_POINT = 'https://jsonplaceholder.typicode.com/users';
+export const END_POINT = 'https://jsonplaceholder.typicode.com/users';
 
 /* 
   [readyState]
@@ -170,7 +170,7 @@ const defaultOptions = {
   }
 }
 
-function xhrPromise(options = {}){
+export function xhrPromise(options = {}){
 
   const {method,url,headers,body,errorMessage:message} = {
     ...defaultOptions,
@@ -226,3 +226,34 @@ xhrPromise.post = (url,body) => xhrPromise({url,body,method:'POST'});
 xhrPromise.put = (url,body) =>  xhrPromise({url,body,method:'PUT'});
 xhrPromise.patch = (url,body) =>  xhrPromise({url,body,method:'PATCH'});
 xhrPromise.delete = url => xhrPromise({url,method:'DELETE'});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
